@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import ElementUi from 'element-ui'
+import './styles/index.less'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUi)
 
