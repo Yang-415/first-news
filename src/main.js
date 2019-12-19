@@ -4,8 +4,10 @@ import router from './router'
 import ElementUi from 'element-ui'
 import './styles/index.less'
 import 'element-ui/lib/theme-chalk/index.css'
+import axios from 'axios'
+Vue.proptype.$https = 'axios'
 Vue.use(ElementUi)
-
+axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
 Vue.config.productionTip = false
 
 new Vue({
