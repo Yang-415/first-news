@@ -57,9 +57,17 @@ export default {
   },
   methods: {
     loginSubmit () {
-      this.$refs.myform.validate(function (isOk) {
+      this.$refs.myform.validate((isOk) => {
         if (isOk) {
-          console.log('校验成功')
+          this.$axios.post('/authorizations', this.loginForm).then(result => {
+            window.localStorage.setItem('token', result.data.data.token)
+            this.$router.push('/home')
+          }).catch(() => {
+            this.$message({
+              message: '验证码不正确',
+              type: 'warnning'
+            })
+          })
         }
       })
     }
@@ -71,7 +79,7 @@ export default {
 .login-bag {
   height: 100vh;
   background: url(../../assets/img/login_bg.jpg);
-  background-size: 100%;
+  background-size:                                                                                                                                                                                                                                                                  100%;
   box-sizing: cover;
   display: flex;
   justify-content: center;
