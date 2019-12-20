@@ -5,20 +5,24 @@
     <el-aside  class="aside-nav" style="width:230px">
       <homePageAside style="width:231px"></homePageAside>
     </el-aside>
-    <el-main>
+    <el-main style="padding:0">
       <!-- 内容区头部 -->
-      <el-header>头部</el-header>
+      <el-header>
+        <homePageHeader></homePageHeader>
+      </el-header>
       <!-- 内容区容器 -->
       <el-main>容器区</el-main>
     </el-main>
   </el-container>
 </template>
 <script>
-import HomePageAaside from '../../components/home/homePageAside.vue'
+// import HomePageAaside from '../../components/home/homePageAside.vue'
+// import HomePageHeader from '../../components/home/homePageHeader.vue'
 export default {
-  components: {
-    'homePageAside': HomePageAaside
-  }
+  // components: {
+  //   'homePageAside': HomePageAaside,
+  //   'homePageHeader': HomePageHeader
+  // }
 }
 </script>
 
