@@ -59,7 +59,9 @@ export default {
     loginSubmit () {
       this.$refs.myform.validate((isOk) => {
         if (isOk) {
+          // console.log(isOk)
           this.$axios.post('/authorizations', this.loginForm).then(result => {
+            console.log(result)
             window.localStorage.setItem('infoToken', result.data.data.token)
             this.$router.push('/home')
           }).catch(() => {
