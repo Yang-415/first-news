@@ -11,7 +11,9 @@
         <homePageHeader></homePageHeader>
       </el-header>
       <!-- 内容区容器 -->
-      <el-main>容器区</el-main>
+      <el-main style="padding:0">
+        <router-view></router-view>
+      </el-main>
     </el-main>
   </el-container>
 </template>
@@ -28,8 +30,9 @@ export default {
 
 <style lang="less" scoped>
 .aside-nav {
-  height: 100vh;
+  min-height: 100vh;
   background: #323745;
+  overflow: hidden;
 }
 
 </style>
