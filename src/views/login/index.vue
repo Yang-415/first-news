@@ -62,13 +62,8 @@ export default {
           // console.log(isOk)
           this.$axios.post('/authorizations', this.loginForm).then(result => {
             console.log(result)
-            window.localStorage.setItem('infoToken', result.data.data.token)
+            window.localStorage.setItem('infoToken', result.data.token)
             this.$router.push('/home')
-          }).catch(() => {
-            this.$message({
-              message: '验证码不正确',
-              type: 'warnning'
-            })
           })
         }
       })
