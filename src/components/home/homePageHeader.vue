@@ -42,8 +42,10 @@ export default {
     this.$axios({
       url: '/user/profile'
     }).then(result => {
+      // console.log(result.data)
+      // result.data.name = '地主家的傻儿子'
       this.userInfo = result.data
-      console.log(this.userInfo)
+      // this.userInfo = 432
     })
   }
 }
