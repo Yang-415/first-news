@@ -18,7 +18,7 @@ axios.interceptors.request.use(function (config) {
 }, function () { })
 // 响应拦截
 axios.defaults.transformResponse = [function (data) {
-  return data ? bigInt.parse(data) : data
+  return data ? bigInt.parse(data) : {}
 }]
 axios.interceptors.response.use(function (response) {
   return response.data ? response.data : {}

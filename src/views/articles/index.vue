@@ -37,7 +37,7 @@
     </el-form>
     <template>
       <!-- 内容部分 -->
-      <p style="border-bottom:1px dashed #ccc;padding:20px 0">共找到62285条符合条件的内容</p>
+      <p style="border-bottom:1px dashed #ccc;padding:20px 0">共找到{{page.total}}条符合条件的内容</p>
       <!-- 内容模板 -->
       <el-row
         type="flex"
@@ -65,7 +65,8 @@
             <span>
               <i class="el-icon-edit"></i>修改
             </span>
-            <span>
+            <!-- 删除文章事件 -->
+            <span @click="deleteArticle(item.id)">
               <i class="el-icon-delete-solid"></i>
               删除
             </span>
@@ -130,26 +131,21 @@ export default {
     }
   },
   methods: {
+    // 删除文章事件
+    deleteArticle (id) {
+      this.$axios({ url: `/articles/${id}`, method: 'delete' }).then((result) => {
+        this.getarticle(this.articleConditionParams())
+      })
+    },
     // 文章分页事件
     changPerArticle (newPage) {
       this.page.currentPage = newPage
-      // let params = {
-      //   page: this.page.currentPage,
-      //   per_page: this.page.pageSize,
-      //   status: this.formData.status === 5 ? null : this.formData.status,
-      //   channel_id: this.formData.channel_id,
-      //   beggin_pubdate: this.formData.dateRange.length
-      //     ? this.formData.dateRange[0]
-      //     : null,
-      //   end_pubdate:
-      //     this.formData.dateRange.length > 1 ? this.formData.dateRange[1] : null
-      // }
-      this.getarticle(this.getarticle(this.articleConditionParams()))
+      this.getarticle(this.articleConditionParams())
+      console.log(this.page.total)
     },
     // 条件组合筛选
     changCondition () {
       this.page.currentPage = 1
-
       this.getarticle(this.articleConditionParams())
     },
     articleConditionParams () {
@@ -164,7 +160,6 @@ export default {
         end_pubdate:
           this.formData.dateRange.length > 1 ? this.formData.dateRange[1] : null
       }
-
       return params
     },
     //   获取文章列表
@@ -179,8 +174,6 @@ export default {
       this.$axios({
         url: 'channels'
       }).then(result => {
-        console.log(result)
-
         this.channels = result.data.channels
       })
     }
@@ -215,6 +208,7 @@ export default {
 }
 .reviseOrDel {
   span {
+    cursor: pointer;
     font-size: 14px;
     margin: 0 10px;
   }

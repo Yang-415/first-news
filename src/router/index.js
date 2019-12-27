@@ -13,18 +13,19 @@ const routes = [{
   path: '/home',
   name: 'home',
   component: Home,
-  children: [{
-    path: '/',
-    component: home
-  },
-  {
-    path: '/home/comment',
-    component: () => import('../views/comment')
-  }, {
-    path: '/home/material',
-    component: () => import('../views/material')
-  }, { path: '/home/articles',
-    component: () => import('../views/articles') }]
+  children: [
+    {
+      path: '/',
+      component: home },
+    { path: '/home/comment',
+      component: () => import('../views/comment') },
+    { path: '/home/material',
+      component: () => import('../views/material') },
+    { path: '/home/articles',
+      component: () => import('../views/articles') },
+    { path: '/home/publish',
+      component: () => import('../views/publish') }
+  ]
 }, {
   path: '/login',
   component: Login
