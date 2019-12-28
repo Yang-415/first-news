@@ -3,7 +3,7 @@
       <div class="aside-logo"><img src="../../assets/img/logo_admin.png" alt=""></div>
     <!--1.<el-menu>用来作为左侧导航容器 -->
     <el-menu background-color=" #353b4e" text-color="#adafb5" active-text-color=" #ffd04b" router>
-      <el-menu-item>首页</el-menu-item>
+      <el-menu-item index="/home">首页</el-menu-item>
       <!--2. 通过设置index属性确定点击的下拉列表对象 -->
       <el-submenu index="art-container">
         <span slot="title">内容管理</span>

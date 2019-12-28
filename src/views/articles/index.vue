@@ -62,7 +62,7 @@
         </el-col>
         <el-col :span="6">
           <el-row type="flex" justify="end" class="reviseOrDel">
-            <span>
+            <span @click="modefiredArt(item.id)">
               <i class="el-icon-edit"></i>修改
             </span>
             <!-- 删除文章事件 -->
@@ -131,10 +131,21 @@ export default {
     }
   },
   methods: {
+    // 修改文章
+    modefiredArt (id) {
+      this.$router.push(`/home/publish/${id.toString()}`)
+    },
     // 删除文章事件
     deleteArticle (id) {
-      this.$axios({ url: `/articles/${id}`, method: 'delete' }).then((result) => {
-        this.getarticle(this.articleConditionParams())
+      this.$confirm('你确定要删除么？').then(() => {
+        this.$axios(
+          { url: `/articles/${id}`,
+            method: 'delete' }
+        )
+          .then(
+            (result) => {
+              this.getarticle(this.articleConditionParams())
+            })
       })
     },
     // 文章分页事件
