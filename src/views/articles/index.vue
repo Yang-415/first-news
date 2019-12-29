@@ -37,7 +37,8 @@
     </el-form>
     <template>
       <!-- 内容部分 -->
-      <p style="border-bottom:1px dashed #ccc;padding:20px 0">共找到{{page.total}}条符合条件的内容</p>
+      <p style="border-bottom:1px dashed #ccc;padding:20px 0">
+        共找到{{page.total}}条符合条件的内容</p>
       <!-- 内容模板 -->
       <el-row
         type="flex"
@@ -93,7 +94,7 @@ export default {
       list: [],
       defaultImg: require('../../assets/img/sz.jpg'),
       page: {
-        total: 0,
+        total: 3,
         currentPage: 1,
         pageSize: 10
       }
@@ -157,7 +158,6 @@ export default {
     changPerArticle (newPage) {
       this.page.currentPage = newPage
       this.articleConditionParams()
-      console.log(this.page.total)
     },
     // 条件组合筛选
     changCondition () {
