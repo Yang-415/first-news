@@ -1,6 +1,7 @@
 import HomePageAaside from './home/homePageAside.vue'
 import HomePageHeader from './home/homePageHeader.vue'
 import BreadCrumb from './common/breadcrumb.vue'
+import coverImg from './coverImg/index.vue'
 import { quillEditor } from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
@@ -11,5 +12,6 @@ export default {
     Vue.component('homePageHeader', HomePageHeader)// 全局注册
     Vue.component('breadcumb', BreadCrumb)
     Vue.component('quill-editor', quillEditor)
+    Vue.component('cover-img', coverImg)
   }
 }

@@ -38,7 +38,7 @@
     <template>
       <!-- 内容部分 -->
       <p style="border-bottom:1px dashed #ccc;padding:20px 0">
-        共找到{{page.total}}条符合条件的内容</p>
+        共找到{{ page.total }}条符合条件的内容</p>
       <!-- 内容模板 -->
       <el-row
         type="flex"
@@ -94,7 +94,7 @@ export default {
       list: [],
       defaultImg: require('../../assets/img/sz.jpg'),
       page: {
-        total: 3,
+        total: 0,
         currentPage: 1,
         pageSize: 10
       }

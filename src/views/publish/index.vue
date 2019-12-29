@@ -20,6 +20,7 @@
           <el-radio :label="0">无图</el-radio>
           <el-radio :label="-1">自动</el-radio>
         </el-radio-group>
+        <cover-img :list="formdata.cover.images"></cover-img>
       </el-form-item>
       <!-- 频道部分 -->
       <el-form-item label="频道" prop="channel_id" style="margin-top:30px">
@@ -76,6 +77,15 @@ export default {
           },
           channel_id: null
         }
+      }
+    },
+    'formdata.cover.type': function () {
+      if (this.formdata.cover.type === 0 || this.formdata.cover.type === -1) {
+        this.formdata.cover.images = []
+      } else if (this.formdata.cover.type === 1) {
+        this.formdata.cover.images = ['']
+      } else if (this.formdata.cover.type === 3) {
+        this.formdata.cover.images = ['', '', '']
       }
     }
   },
