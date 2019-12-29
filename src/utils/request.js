@@ -21,7 +21,7 @@ axios.defaults.transformResponse = [function (data) {
   return data ? bigInt.parse(data) : {}
 }]
 axios.interceptors.response.use(function (response) {
-  return response.data ? response.data : { response }
+  return response.data ? response.data : {}
 }, function (error) {
   let status = error.response.status
   let message = ''

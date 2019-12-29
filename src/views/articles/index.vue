@@ -62,7 +62,7 @@
         </el-col>
         <el-col :span="6">
           <el-row type="flex" justify="end" class="reviseOrDel">
-            <span @click="modefiredArt(item.id)">
+            <span @click="modifyArt(item.id)">
               <i class="el-icon-edit"></i>修改
             </span>
             <!-- 删除文章事件 -->
@@ -83,7 +83,8 @@
 export default {
   data () {
     return {
-      formData: { status: 5,
+      formData: {
+        status: 5,
         channel_id: null,
         dateRange: []
       },
@@ -99,7 +100,7 @@ export default {
     }
   },
   filters: {
-    //  删选状态
+    //  筛选状态
     filterStatus (value) {
       switch (value) {
         case 0:
@@ -132,32 +133,36 @@ export default {
   },
   methods: {
     // 修改文章
-    modefiredArt (id) {
-      this.$router.push(`/home/publish/${id.toString()}`)
+    modifyArt (artId) {
+      this.$router.push(`/home/publish/${artId.toString()}`)
+      // this.$axios({
+      //   url: `/articles/${artId}`,
+      //   data:{},
+      //   method: 'put'
+      // }).then(result => {
+      //   console.log(result)
+      // })
     },
     // 删除文章事件
     deleteArticle (id) {
-      this.$confirm('你确定要删除么？').then(() => {
-        this.$axios(
-          { url: `/articles/${id}`,
-            method: 'delete' }
-        )
-          .then(
-            (result) => {
-              this.getarticle(this.articleConditionParams())
-            })
+      this.$confirm('你确定要删除该文章吗？').then(() => {
+        this.$axios({
+          url: `/articles/${id}`,
+          method: 'delete' }).then((result) => {
+          this.articleConditionParams()
+        })
       })
     },
     // 文章分页事件
     changPerArticle (newPage) {
       this.page.currentPage = newPage
-      this.getarticle(this.articleConditionParams())
+      this.articleConditionParams()
       console.log(this.page.total)
     },
     // 条件组合筛选
     changCondition () {
       this.page.currentPage = 1
-      this.getarticle(this.articleConditionParams())
+      this.articleConditionParams()
     },
     articleConditionParams () {
       let params = {
@@ -171,13 +176,14 @@ export default {
         end_pubdate:
           this.formData.dateRange.length > 1 ? this.formData.dateRange[1] : null
       }
-      return params
+      this.getarticle(params)
     },
     //   获取文章列表
     getarticle (params) {
       this.$axios({ url: '/articles', params }).then(result => {
         this.list = result.data.results
         this.page.total = result.data.total_count
+        console.log(this.page.total)
       })
     },
     //   获取文章频道
@@ -190,8 +196,8 @@ export default {
     }
   },
   created () {
-    this.getChannels()
     this.getarticle()
+    this.getChannels()
   }
 }
 </script>
