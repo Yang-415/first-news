@@ -14,13 +14,13 @@
       </el-form-item>
       <!-- 封面部分 -->
       <el-form-item label="封面" prop="type" style="margin-top:120px">
-        <el-radio-group v-model="formdata.cover.type">
+        <el-radio-group v-model="formdata.cover.type" @change="changetype">
           <el-radio :label="1">单图</el-radio>
           <el-radio :label="3">三图</el-radio>
           <el-radio :label="0">无图</el-radio>
           <el-radio :label="-1">自动</el-radio>
         </el-radio-group>
-        <cover-img :list="formdata.cover.images"></cover-img>
+        <cover-img @clickOneImg="reciveImg" :list="formdata.cover.images"></cover-img>
       </el-form-item>
       <!-- 频道部分 -->
       <el-form-item label="频道" prop="channel_id" style="margin-top:30px">
@@ -29,7 +29,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="publicArticle(!draft)">发布</el-button>
+        <el-button type="primary" @click="publicArticle()">发布</el-button>
         <el-button type="danger" plain @click="publicArticle(draft)">草稿</el-button>
       </el-form-item>
     </el-form>
@@ -66,7 +66,7 @@ export default {
     $route: function (to) {
       if (Object.keys(to.params).length) {
         // 需要重新拉取指定文章的数据
-        this.getArt()
+        // this.getArt()
       } else {
         this.formdata = {
           title: '',
@@ -78,8 +78,25 @@ export default {
           channel_id: null
         }
       }
+    }
+    // 'formdata.cover.type': function () {
+    //   if (this.formdata.cover.type === 0 || this.formdata.cover.type === -1) {
+    //     this.formdata.cover.images = []
+    //   } else if (this.formdata.cover.type === 1) {
+    //     this.formdata.cover.images = ['']
+    //   } else if (this.formdata.cover.type === 3) {
+    //     this.formdata.cover.images = ['', '', '']
+    //   }
+    // }
+  },
+  methods: {
+    // 接受点击图片传过来的图片地址
+    reciveImg (img, index) {
+      // alert('再次接受图片传过来的地址:' + img + index)
+      this.formdata.cover.images = this.formdata.cover.images.map((item, i) => (i === index) ? img : item)
     },
-    'formdata.cover.type': function () {
+    // 图片type发生改变,图片即变
+    changetype () {
       if (this.formdata.cover.type === 0 || this.formdata.cover.type === -1) {
         this.formdata.cover.images = []
       } else if (this.formdata.cover.type === 1) {
@@ -87,13 +104,13 @@ export default {
       } else if (this.formdata.cover.type === 3) {
         this.formdata.cover.images = ['', '', '']
       }
-    }
-  },
-  methods: {
+    },
     // 获取修改文章数据
     getArt (artId) {
       this.$axios({ url: `articles/${artId}` }).then(result => {
         this.formdata = result.data
+        // console.log(result)
+        // console.log(this.formdata)
       })
     },
     //   发布校验
@@ -112,10 +129,10 @@ export default {
     },
     // 发布文章或修改文章
     pubOrDraft (draft) {
-      let { artId } = this.$route.artId
+      let { artId } = this.$route.params
       // 方法二：精简方法
       this.$axios({
-        url: artId ? `article/${artId}` : 'article',
+        url: artId ? `articles/${artId}` : 'articles',
         method: artId ? 'put' : 'post',
         params: { draft },
         data: this.formdata
@@ -151,6 +168,7 @@ export default {
     this.getChannelsData()
     let { artId } = this.$route.params
     artId && this.getArt(artId)
+    // console.log(artId)
   }
 }
 </script>
